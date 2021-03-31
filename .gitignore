@@ -1,0 +1,11 @@
+*.out
+*.o
+*.dev
+*.exe
+*.out
+*.win
+*.layout
+*.obj
+*.so
+*.lib
+*.a
