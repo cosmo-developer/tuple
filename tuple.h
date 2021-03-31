@@ -1,13 +1,6 @@
 #ifndef TUPLE_H
 #define TUPLE_H
 #include "utility.h"
-
-
-template<typename T>
-struct enable_if<true,T>{
-	using type=T;
-};
-
 template<typename... Args>
 class tuple;
 

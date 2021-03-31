@@ -2,6 +2,11 @@
 #define UTILITY_H
 template<bool test,typename Type>
 struct enable_if{};
+template<typename T>
+struct enable_if<true,T>{
+	using type=T;
+};
+
 template<bool IfTest,bool ElseIftest,typename OnIfTrue,typename OnElseIfTrue>
 struct enable_if_elseif{
 };
