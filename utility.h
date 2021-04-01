@@ -53,4 +53,22 @@ template<typename T,typename... Types>
 struct index_of_type<T,T,Types...>{
 	static constexpr int I=0;
 };
+using ulli=unsigned long long int;
+template<ulli val>
+struct sum_of_n{
+	static constexpr ulli result=val+sum_of_n<val-1>::result;
+};
+template<>
+struct sum_of_n<0>{
+	static constexpr ulli result=0;
+};
+template<ulli val>
+struct factorial{
+	static constexpr ulli result=val*factorial<val-1>::result;
+};
+template<>
+struct factorial<0>{
+	static constexpr ulli result=1;
+};
+
 #endif

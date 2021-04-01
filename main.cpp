@@ -1,6 +1,7 @@
 #include "tuple.h"
 #include <string>
 #include <iostream>
+#include <chrono>
 #include "invoke.h"
 struct Some{
 	int x;
@@ -58,12 +59,28 @@ template<typename T>
 Some operator+(Some& left,T& right){
 	return Some{left.x,right.z,left.w};
 }
-
+int callme(int x,int y){
+	std::cout<<x<<"+"<<y<<"="<<x+y<<std::endl;
+	return x+y;
+}
+ulli su(ulli val){
+	if (val==0){return 0;}
+	return val+su(val-1);
+}
+//use -ftemplate-depth=3000 compiler argument
 int main(int argc, char** argv) {
 	Some left{5,8,7};
 	Some right{8,9,0};
 	Some newSome=left+right;
+	
 	int i=index_of_type<long,int,float,char,long>::I;
-	std::cout<<i<<std::endl;
+	auto start=std::chrono::steady_clock::now();
+	std::cout<<su(2100)<<std::endl;
+	auto end=std::chrono::steady_clock::now();
+	std::cout<<"ellapsed time:"<<std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count()<<std::endl;
+	start=std::chrono::steady_clock::now();
+	std::cout<<sum_of_n<2100>::result<<std::endl;
+	end=std::chrono::steady_clock::now();
+	std::cout<<"ellapsed time:"<<std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count()<<std::endl;
 	return 0;
 }
