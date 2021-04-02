@@ -107,6 +107,10 @@ template<typename T>
 T take_any(T value,any_t some){
 	return value*any_cast<T>(some);	
 }
+std::ostream& operator<<(std::ostream& in,const Some& s){
+	std::cout<<"["<<s.w<<","<<s.x<<","<<s.z<<"]";
+	return in;
+}
 int main(int argc, char** argv) {
 	Some left{5,8,7};
 	Some right{8,9,0};
@@ -130,9 +134,24 @@ int main(int argc, char** argv) {
 	
 	variant_t<int,float,double,Some> ydelta=44;
 	try{
-		std::cout<<get_if<Some>(ydelta).x<<std::endl;
+		std::cout<<get_if<Some>(ydelta)<<std::endl;
 	}catch(invalid_get_type& e){
 		std::cerr<<e.what<<std::endl;
+		try{
+		  std::cout<<get_if<double>(ydelta)<<std::endl;
+		}catch(invalid_get_type& e2){
+			std::cerr<<e2.what<<std::endl;
+			try{
+		  		std::cout<<get_if<float>(ydelta)<<std::endl;
+			}catch(invalid_get_type& e3){
+				std::cerr<<e3.what<<std::endl;
+				try{
+		  			std::cout<<get_if<int>(ydelta)<<std::endl;
+				}catch(invalid_get_type& e2){
+					
+				}
+			}
+		}
 	}
 	return 0;
 }
