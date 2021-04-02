@@ -4,11 +4,9 @@
 template<typename... Args>
 class tuple;
 
-
 template<>
-class tuple<>{
-	
-};
+class tuple<>{};
+
 template<typename T,typename... Args>
 class tuple<T,Args...>{
 	using ThisType=T;
@@ -17,6 +15,7 @@ class tuple<T,Args...>{
 		ThisType value;
 		RestType other;
 };
+
 template<typename T>
 tuple<T> make_tuple(T self){
 	tuple<T> tup=tuple<T>();
@@ -32,21 +31,26 @@ tuple<T,Args...> make_tuple(T value,Args... types){
 	tup.other=make_tuple(types...);
 	return tup;
 }
+
 template<int Idx,typename... Types>
 struct element_type_at;
+
 template<typename This,typename... Types>
 struct element_type_at<0,tuple<This,Types...>>{
 	using MyType=This;
 	using RestType=tuple<Types...>;
 };
+
 template<int Idx,typename This,typename... Types>
 struct element_type_at<Idx,tuple<This,Types...>>{
 	using MyType=typename element_type_at<Idx-1,tuple<Types...>>::MyType;
 };
 template<int id>
 class zero;
+
 template<int id>
 class normal;
+
 template<int e>
 class empty;
 
@@ -57,6 +61,7 @@ template<>
 struct element_caller<0>{
 	using getter=zero<0>;
 };
+
 template<int id>
 class zero{
 	public:
@@ -65,6 +70,7 @@ class zero{
 		return tup.value;
 	}
 };
+
 template<int id>
 class normal{
 	public:
