@@ -39,11 +39,13 @@ struct type_at{using type=typename type_at<Idx-1,Types...>::type;};
 template<typename This,typename... Rest>
 struct type_at<0,This,Rest...>{using type=This;};
 
+
 template<typename ToFind,typename T,typename... Types>
 struct index_of_type{static constexpr typename enable_if<not_same<ToFind,T>::value,int>::type I=index_of_type<ToFind,Types...>::I+1;};
 
 template<typename T,typename... Types>
 struct index_of_type<T,T,Types...>{static constexpr int I=0;};
+
 
 using ulli=unsigned long long int;
 template<ulli val>
@@ -61,4 +63,12 @@ struct factorial<0>{static constexpr ulli result=1;};
 template<typename T,typename VType>
 const char* visit(T value,VType visitor){return visitor(value);}
 
+template<typename T,typename T2,typename... Tps>
+struct contain_t{
+	static constexpr bool found=contain_t<T,Tps...>::found;
+};
+template<typename T,typename... Tps>
+struct contain_t<T,T,Tps...>{
+	static constexpr bool found=true;
+};
 #endif

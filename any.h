@@ -1,5 +1,5 @@
-#ifndef VARIANT_H
-#define VARIANT_H
+#ifndef ANY_H
+#define ANY_H
 #include <iostream>
 struct any_t{
 	private:

@@ -4,12 +4,13 @@
 #include "invoke.h"
 #include "tuple.h"
 #include "any.h"
+#include "variant.h"
 
 struct Some{
 	int x;
 	int z;
 	int w;
-};
+}d[5];
 int yes(int x){
 	std::cout<<"Somethig happening"<<std::endl;
 	return 99;
@@ -125,5 +126,13 @@ int main(int argc, char** argv) {
 	any_t x=3;
 	std::cout<<take_any(44,x)<<std::endl;
 	std::cout<<any_cast<char>(x)<<std::endl;
+	std::cout<<contain_t<float,float,char>::found<<std::endl;
+	
+	variant_t<int,float,double,Some> ydelta=44;
+	try{
+		std::cout<<get_if<Some>(ydelta).x<<std::endl;
+	}catch(invalid_get_type& e){
+		std::cerr<<e.what<<std::endl;
+	}
 	return 0;
 }
